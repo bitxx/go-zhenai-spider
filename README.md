@@ -7,6 +7,7 @@
 docker
 docker中开个elasticsearch镜像
 ### 依赖包
+为了方便，小编已经将下面这些包下载到src中了，可以直接用
 1. gopm  
 为了便于从google服务器拉取某些go包
 ```text
@@ -15,7 +16,7 @@ go get -u github.com/gpmgo/gopm
 2. golang.org/x/net/html 
 用于自动发现当前html页面是哪种编码
 ```text
-gopm get -g -v 
+gopm get -g -v golang.org/x/net/html
 ```
 3. golang.org/x/text
 用于对文本内容进行转码
