@@ -2,7 +2,7 @@
 ### 简介
 这个是《Google资深工程师深度讲解golang》中爬虫项目的源码，官方没有提供，小编自学期间逐步完善的，前端页面小编重找了个，但不影响整体结果。
 目前该项目源码，小编更新到了：带有前端展示以及ElasticSearch存储并发版  
-<img src="img/1.png" width = "300" height = "150"/>
+<img src="img/1.png" width = "800" height = "516"/>
 ### 环境
 docker
 docker中开个elasticsearch镜像
