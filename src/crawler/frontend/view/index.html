@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>真爱网-爬虫</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100">
+                    <div align="middle">
+                        <form method="get" >
+                            <input placeholder="请输入关键词进行检索" type="text" maxlength="100" value="{{.Query}}" name="q" style="height:40px; width: 500px;display:inline;">
+                            <button type="submit" class="btn btn-info" style="text-align:center;display:inline;height:40px;">搜索</button>
+                        </form>
+                    </div>
+                    <h5 style="text-align: center;color: white; margin-top: 20px;margin-bottom: 20px">共为你找到相关结果约为{{.Hits}}个，显示从{{.Start}}起共{{len .Items}}个</h5>
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column_start">昵称</th>
+								<th class="column">性别</th>
+								<th class="column">年龄</th>
+								<th class="column">身高</th>
+								<th class="column">体重</th>
+								<th class="column">收入</th>
+                                <th class="column">学历</th>
+                                <th class="column">工作</th>
+                                <th class="column">户口</th>
+                                <th class="column">星座</th>
+                                <th class="column">购房</th>
+                                <th class="column_end">购车</th>
+							</tr>
+						</thead>
+						<tbody>
+                            {{range .Items}}
+                                <tr>
+                                    <td class="column_start"><a href="{{.Url}}">{{.Payload.Name}}</a></td>
+                                    {{with .Payload}}
+                                        <td class="column">{{.Gender}}</td>
+                                        <td class="column">{{.Age}}</td>
+                                        <td class="column">{{.Height}}</td>
+                                        <td class="column">{{.Weight}}</td>
+                                        <td class="column">{{.Income}}</td>
+                                        <td class="column">{{.Education}}</td>
+                                        <td class="column">{{.Occupation}}</td>
+                                        <td class="column">{{.Hokou}}</td>
+                                        <td class="column">{{.Xinzuo}}</td>
+                                        <td class="column">{{.House}}</td>
+                                        <td class="column_end">{{.Car}}</td>
+                                    {{end}}
+                                </tr>
+                            {{else}}
+                                <div><h5 style="text-align: center;color: white">没有找到相关用户</h5></div>
+                            {{end}}
+						</tbody>
+					</table>
+                    <div align="middle">
+                        {{if ge .PrevFrom 0}}
+                            <a href="search?q={{.Query}}&from={{.PrevFrom}}">上一页</a>
+                        {{end}}
+                        <a href="search?q={{.Query}}&from={{.NextFrom}}">下一页</a>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
