@@ -5,10 +5,12 @@ import (
 	"crawler_distributed/persist"
 	"gopkg.in/olivere/elastic.v5"
 	"log"
+	"fmt"
+	"crawler_distributed/config"
 )
 
 func main() {
-	log.Fatal(serveRpc(":1234", "dating_profile"))
+	log.Fatal(serveRpc(fmt.Sprintf(":%d",config.ItemSaverPort), config.ElasticIndex))
 	//Fatal，若有异常，则挂了。panic还有recover的机会
 
 }

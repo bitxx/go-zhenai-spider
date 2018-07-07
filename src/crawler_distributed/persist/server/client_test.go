@@ -6,6 +6,7 @@ import (
 	"crawler/engine"
 	"crawler/model"
 	"time"
+	"crawler_distributed/config"
 )
 
 func TestItemSaver(t *testing.T) {
@@ -40,7 +41,7 @@ func TestItemSaver(t *testing.T) {
 		},
 	}
 	result := ""
-	err = client.Call("ItemSaverService.Save", item, &result)
+	err = client.Call(config.ItemSaverRPC, item, &result)
 	if err != nil || result != "ok"{
 		t.Errorf("result:%s; err: %s",result,err)
 	}
