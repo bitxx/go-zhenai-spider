@@ -32,3 +32,26 @@ gopm get -g -v golang.org/x/text
 ```text
 go get -v gopkg.in/olivere/elastic.v5
 ```
+## 本项目使用
+1. 所有终端初始时候都在`go-zhenai-spider/src`这个目录下
+2. 第一个终端启动itemsaver，用于保存数据到elasticsearch：
+    ```text
+    go run crawler_distributed/persist/server/itemsaver.go --port=1234
+    ```  
+3. 第2个终端启动worker1，爬取解析数据：
+    ```text
+    go run crawler_distributed/worker/server/worker.go --port=9000
+    ```
+4. 第3个终端启动worker2，爬取解析数据:
+    ```text
+    go run crawler_distributed/worker/server/worker.go --port=9001
+    ```
+5. 第4个终端启动worker3，爬取解析数据:
+    ```text
+    go run crawler_distributed/worker/server/worker.go --port=9002
+    ```
+6. 第5个终端启动main，客户端：
+    ```text
+    go run itemsaver_host=":1234" worker_hosts=":9000,:9001,9002"
+    ```
+7. 分布式爬虫运行中

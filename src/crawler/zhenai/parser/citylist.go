@@ -3,6 +3,7 @@ package parser
 import (
 	"crawler/engine"
 	"regexp"
+	"crawler_distributed/config"
 )
 
 const cityListRe = `<a href="(http://www.zhenai.com/zhenghun/[0-9a-z]+)"[^>]*>([^<]+)</a>`
@@ -16,7 +17,7 @@ func ParserCityList(contents []byte,_ string) engine.ParseResult {
 	for _, m := range matches {
 		result.Request = append(result.Request, engine.Request{
 			Url:        string(m[1]),
-			ParserFunc: ParseCity,
+			Parser: engine.NewFuncParser(ParseCity,config.ParseCity),
 		})
 		limit--
 		if limit == 0{

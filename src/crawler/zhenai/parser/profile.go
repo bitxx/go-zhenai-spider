@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"crawler/model"
+	"crawler_distributed/config"
 )
 
 var ageRe = regexp.MustCompile(`<td><span class="label">年龄：</span>([\d]+)岁</td>`)
@@ -23,7 +24,7 @@ var occupationRe = regexp.MustCompile(`<td><span class="label">职业： </span>
 var guessRe = regexp.MustCompile(`<a class="exp-user-name"[^>]*href="(http://album.zhenai.com/u/[\d]+)">([^<])`)
 var idUrlRe = regexp.MustCompile(`http://album.zhenai.com/u/([\d]+)`)
 
-func ParseProfile(contents [] byte,url string, name string) engine.ParseResult{
+func parseProfile(contents [] byte,url string, name string) engine.ParseResult{
 	profile := model.Profile{}
 	profile.Name = name
 
@@ -68,7 +69,7 @@ func ParseProfile(contents [] byte,url string, name string) engine.ParseResult{
 	for _,m := range matchs{
 		result.Request = append(result.Request,engine.Request{
 			Url:string(m[1]),
-			ParserFunc: ProfileParse(string(m[2])),
+			Parser: NewProfileParse(string(m[2])),
 		})
 	}
 	return result
@@ -83,8 +84,21 @@ func extractString(contents []byte, re *regexp.Regexp) string{
 	}
 }
 
-func ProfileParse(name string) engine.ParserFunc{
-	return func(c []byte,url string) engine.ParseResult {
-		return ParseProfile(c,url,name)
+type ProfileParse struct{
+	userName string
+}
+
+func (p *ProfileParse) Parser(contents []byte, url string) engine.ParseResult {
+	return parseProfile(contents,url,p.userName)
+}
+
+func (p *ProfileParse) Serialize() (name string, args interface{}) {
+	return config.ParseProfile,p.userName
+}
+
+func NewProfileParse(name string) *ProfileParse{
+	return &ProfileParse{
+		userName:name,
+
 	}
 }

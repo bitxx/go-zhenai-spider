@@ -12,5 +12,5 @@ import (
 )
 
 // The printer defined here will be picked up by the first print statement
-// in main.go.
+// in ItemSaver.go.
 var printer = message.NewPrinter(language.English)

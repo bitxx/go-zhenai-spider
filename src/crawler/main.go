@@ -22,11 +22,12 @@ func concurrentScheduler(){
 		Scheduler: &scheduler.QueuedScheduler{},
 		WorkerCount:10,
 		ItemChan:itemsChan,
+		RequestProcessor:engine.Worker,
 	}
 
 	e.Run(engine.Request{
 		Url: "http://www.zhenai.com/zhenghun",
-		ParserFunc: parser.ParserCityList,
+		Parser: engine.NewFuncParser(parser.ParserCityList,"ParserCityList"),
 	})
 }
 
@@ -44,7 +45,7 @@ func simpleScheduler(){
 
 	e.Run(engine.Request{
 		Url: "http://www.zhenai.com/zhenghun",
-		ParserFunc: parser.ParserCityList,
+		Parser: engine.NewFuncParser(parser.ParserCityList,"ParserCityList"),
 	})
 }
 
@@ -56,7 +57,7 @@ func singleCity(){
 
 	e.Run(engine.Request{
 		Url: "http://www.zhenai.com/zhenghun/shanghai",
-		ParserFunc: parser.ParseCity,
+		Parser: engine.NewFuncParser(parser.ParserCityList,"ParserCityList"),
 	})
 
 }

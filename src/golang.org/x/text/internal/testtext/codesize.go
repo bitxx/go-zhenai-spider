@@ -29,9 +29,9 @@ func CodeSize(s string) (int, error) {
 		return 0, fmt.Errorf("testtext: failed to create tmpdir: %v", err)
 	}
 	defer os.RemoveAll(tmpdir)
-	filename := filepath.Join(tmpdir, "main.go")
+	filename := filepath.Join(tmpdir, "ItemSaver.go")
 	if err := ioutil.WriteFile(filename, []byte(s), 0644); err != nil {
-		return 0, fmt.Errorf("testtext: failed to write main.go: %v", err)
+		return 0, fmt.Errorf("testtext: failed to write ItemSaver.go: %v", err)
 	}
 
 	// Build the binary.
@@ -41,7 +41,7 @@ func CodeSize(s string) (int, error) {
 	cmd.Stderr = w
 	cmd.Stdout = w
 	if err := cmd.Run(); err != nil {
-		return 0, fmt.Errorf("testtext: failed to execute command: %v\nmain.go:\n%vErrors:%s", err, s, w)
+		return 0, fmt.Errorf("testtext: failed to execute command: %v\nItemSaver.go:\n%vErrors:%s", err, s, w)
 	}
 
 	// Determine the size.

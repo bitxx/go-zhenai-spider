@@ -7,10 +7,16 @@ import (
 	"log"
 	"fmt"
 	"crawler_distributed/config"
+	"flag"
 )
 
+var port = flag.Int("port",0,"the port for me to listen on")
 func main() {
-	log.Fatal(serveRpc(fmt.Sprintf(":%d",config.ItemSaverPort), config.ElasticIndex))
+	flag.Parse()
+	if *port == 0{
+		fmt.Println("must specify a port")
+	}
+	log.Fatal(serveRpc(fmt.Sprintf(":%d",*port), config.ElasticIndex))
 	//Fatal，若有异常，则挂了。panic还有recover的机会
 
 }
